@@ -1,46 +1,66 @@
+// Task 1: Create a Department Structure
 const company = {
      departments: [
       {
-        departmentName: 'Engineering',
+        departmentName: 'Operations',
         employees: [
             {
-             name: 'Alice',
-             salary: 100000,
+             name: 'Chris',
+             salary: 125000,
              subordinates: [
                 {
-                 name: 'Bob',
-                 salary: 80000,
+                 name: 'Sarah',
+                 salary: 79000,
                  subordinates: [
                     {
-                     name: 'Charlie',
-                     salary: 60000,
+                     name: 'Lee',
+                     salary: 72000,
                      subordinates: []
                     }
                 ]}
             ]},
                 {
-             name: 'David',
-             salary: 90000,
+             name: 'Sal',
+             salary: 96000,
              subordinates: []
                 }
             ]},
             {
-        departmentName: 'Sales',
+        departmentName: 'Strategy',
         employees: [
                 {
-                 name: 'Eve',
-                 salary: 85000,
+                 name: 'Ava',
+                 salary: 105000,
                  subordinates: [
                     {
-                     name: 'Frank',
-                     salary: 70000,
+                     name: 'Earl',
+                     salary: 86000,
                      subordinates: []
                     }
                 ]},
                 {
-                 name: 'Grace',
-                 salary: 95000,
+                 name: 'Emily',
+                 salary: 105000,
                  subordinates: []
             }
      ]}
 ]};
+
+
+// Task 2: Create a Recursive Function to Calculate Total Salary for a Department
+function calculateDepartmentSalary(department) {
+    let totalDepSalary = 0;
+
+    for (let employee of department.employees) { // Loop through all employees in the department
+        totalDepSalary += employee.salary;
+
+        
+        for (let subordinate of employee.subordinates) {  // If the employee has subordinates, recursively calculate their salaries
+            totalDepSalary += calculateDepartmentSalary({ employees: [subordinate] });
+        }}
+    return totalDepSalary;
+};
+
+// Calculate total salary for the Operations department
+console.log(`Total Salary for Chris's Department: $${calculateDepartmentSalary({ employees: [company.departments[0].employees[0]] })}`);
+// ^^ This console.log will return Chris's Departments Total Salary.
